@@ -8,9 +8,9 @@ import { Component, Input, OnChanges, OnInit } from '@angular/core';
 export class AlertComponent {
   @Input() color = 'red';
 
-  constructor() {}
-
-  generateBg(): string {
-    return 'bg-' + this.color + '-400';
+  get bgColor() {
+    return `bg-${this.color}-400`;
   }
+
+  constructor() {}
 }

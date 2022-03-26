@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
 
 @Component({
   selector: 'app-login',
@@ -11,11 +12,33 @@ export class LoginComponent implements OnInit {
     password: '',
   };
 
-  constructor() {}
+  showAlert = false;
+  alertMsg = 'Please wait while we log you into application';
+  alertColor = 'blue';
+  hasSubmitted = false;
+
+  constructor(private auth: AngularFireAuth) {}
 
   ngOnInit(): void {}
 
-  onFormSubmit() {
-    console.log(this.credentials);
+  async login() {
+    try {
+      this.hasSubmitted = true;
+      await this.auth.signInWithEmailAndPassword(
+        this.credentials.email,
+        this.credentials.password
+      );
+    } catch (error) {
+      console.log(error);
+      this.alertColor = 'red';
+      this.alertMsg = 'Failed to login. Please check your email and password';
+      this.showAlert = true;
+    } finally {
+      this.hasSubmitted = false;
+    }
+
+    this.alertColor = 'green';
+    this.alertMsg = 'You have successfully been authenticated.';
+    this.showAlert = true;
   }
 }

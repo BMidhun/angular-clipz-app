@@ -1,5 +1,8 @@
+<app-alert *ngIf="showAlert" [color]="alertColor">
+  <span>{{ alertMsg }}</span>
+</app-alert>
 <!-- Login Form -->
-<form #loginForm="ngForm" (ngSubmit)="onFormSubmit()">
+<form #loginForm="ngForm" (ngSubmit)="login()">
   <!-- Email -->
   <div class="mb-3">
     <label class="inline-block mb-2">Email</label>
@@ -85,7 +88,7 @@
       disabled:bg-transparent
       disabled:text-gray-500
     "
-    [disabled]="loginForm.invalid"
+    [disabled]="loginForm.invalid || hasSubmitted"
   >
     Submit
   </button>
