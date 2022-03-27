@@ -23,6 +23,7 @@ export class LoginComponent implements OnInit {
 
   async login() {
     try {
+      this.showAlert = true;
       this.hasSubmitted = true;
       await this.auth.signInWithEmailAndPassword(
         this.credentials.email,
@@ -33,12 +34,13 @@ export class LoginComponent implements OnInit {
       this.alertColor = 'red';
       this.alertMsg = 'Failed to login. Please check your email and password';
       this.showAlert = true;
+      return;
     } finally {
       this.hasSubmitted = false;
     }
 
     this.alertColor = 'green';
-    this.alertMsg = 'You have successfully been authenticated.';
+    this.alertMsg = 'You have been successfully authenticated.';
     this.showAlert = true;
   }
 }
